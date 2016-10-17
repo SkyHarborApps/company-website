@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Navbar, Jumbotron, NavItem, Nav } from 'react-bootstrap';
 import './App.css'
+import { browserHistory, Link } from 'react-router'
 
 class App extends Component {
   render() {
@@ -10,15 +11,15 @@ class App extends Component {
           <Grid>
               <Navbar.Header>
                 <Navbar.Brand>
-                  <a href="#">Sky Harbor Apps</a>
+                  <Link to="/">Sky Harbor Apps</Link>
                 </Navbar.Brand>
                 <Navbar.Toggle />
               </Navbar.Header>
               <Navbar.Collapse>
                 <Nav pullRight>
-                  <NavItem eventKey={1} href="/blog">Blog</NavItem>
-                  <NavItem eventKey={2} href="/portfolio">Portfolio</NavItem>
-                  <NavItem eventKey={2} href="/contact">Contact</NavItem>
+                  <NavItem onClick={()=> { browserHistory.push('blog') }}>Blog</NavItem>
+                  <NavItem onClick={()=> { browserHistory.push('portfolio')}}>Portfolio</NavItem>
+                  <NavItem onClick={()=> { browserHistory.push('contact') }}>Contact</NavItem>
                 </Nav>
               </Navbar.Collapse>
           </Grid>

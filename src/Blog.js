@@ -3,12 +3,11 @@
  */
 import React from 'react';
 
-export const Portfolio = () => {
+export const Blog = () => {
   return (
     <p>
-      Portfolio
+      Coming soon...
     </p>
   )
-};
-
+}
 
