@@ -33,7 +33,7 @@ export class App extends Component {
           </Grid>
         </Navbar>
         <Jumbotron>
-          <Grid>
+          <Grid className="content">
             { this.props.children }
           </Grid>
         </Jumbotron>

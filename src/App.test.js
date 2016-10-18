@@ -115,8 +115,12 @@ describe('App', () => {
       });
       it('should have the next component be a Grid component', () => {
         expect(wrapper.childAt(1).childAt(0).type()).toEqual(Grid)
-
       });
+
+      it('should have Grid have correct class', () => {
+        expect(wrapper.childAt(1).childAt(0).props().className).toEqual('content')
+      });
+
       it('should have props.children inside Grid', () => {
         expect(wrapper.childAt(1).childAt(0).childAt(0).text()).toEqual("I am a child!")
       });
