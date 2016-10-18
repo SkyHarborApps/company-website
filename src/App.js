@@ -26,10 +26,10 @@ class App extends Component {
         </Navbar>
         <Jumbotron>
           <Grid>
-            <br/>
             { this.props.children }
           </Grid>
         </Jumbotron>
+        <footer>© Copyright 2016, Sky Harbor Apps LLC</footer>
       </div>
     );
   }
