@@ -1,96 +1,122 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import App from './App';
+import { Grid, Navbar, Jumbotron, NavItem, Nav } from 'react-bootstrap';
+import { browserHistory, Link } from 'react-router'
+
 
 describe('App', () => {
-  it('renders without crashing', () => {
-    shallow(<App />);
+
+  let wrapper;
+
+  beforeEach(() => {
+    wrapper = shallow(<App children={'I am a child!'} />);
   });
 
   describe('Layout', () => {
     describe('Navbar', () => {
       it('should have a Navbar as a top component', () => {
-
+        expect(wrapper.childAt(0).type()).toEqual(Navbar)
       });
       it('should have Navbar parent component have inverse=true', () => {
+        expect(wrapper.find(Navbar).props().inverse).toEqual(true)
 
       });
       
       it('should have Navbar parent component have fixedTop=true', () => {
+        expect(wrapper.find(Navbar).props().fixedTop).toEqual(true)
 
       });
       
       it('should have a Grid after Navbar parent component', () => {
+        expect(wrapper.childAt(0).childAt(0).type()).toEqual(Grid)
 
       });
       
       it('should have a Navbar.Header after Grid', () => {
-
+        expect(wrapper.childAt(0).childAt(0).childAt(0).type()).toEqual(Navbar.Header)
       });
 
       it('should have a Navbar.Brand as nexxt component', () => {
-        
+        expect(wrapper.childAt(0).childAt(0).childAt(0).childAt(0).type()).toEqual(Navbar.Brand)
       });
 
       it('should have Navbar.Brand contain a Link to index', () => {
-        
+        expect(wrapper.find(Navbar.Brand).childAt(0).type()).toEqual(Link)
+
       });
 
       it('should have correct title in Link', () => {
-        
+        expect(wrapper.find(Navbar.Brand).childAt(0).childAt(0).text()).toEqual('Sky Harbor Apps')
       });
 
       it('should have a Navbar.Collapse component next', () => {
-
+        expect(wrapper.childAt(0).childAt(0).childAt(1).type()).toEqual(Navbar.Collapse)
       });
       
       describe('Navbar.Collapse', () => {
         
         it('should contain a Nav as top level component', () => {
-
+          expect(wrapper.find(Navbar.Collapse).childAt(0).type()).toEqual(Nav)
         });
 
         it('should have top level Nav have a pullRight = true', () => {
-          
+          expect(wrapper.find(Nav).props().pullRight).toEqual(true)
         });
         
-        describe('Nav items', () => {
+        describe('NavItems', () => {
+
+          it('should have 3 NavItems', () => {
+            expect(wrapper.find(NavItem).length).toEqual(3)
+          });
+
           it('should have a first Nav item with correct text', () => {
+            expect(wrapper.find(Nav).childAt(0).childAt(0).text()).toEqual('Blog')
 
           });
           
           it('should have a second Nav item with correct text', () => {
+            expect(wrapper.find(Nav).childAt(1).childAt(0).text()).toEqual('Portfolio')
 
           });
           
           it('should have a third Nav item with correct text', () => {
+            expect(wrapper.find(Nav).childAt(2).childAt(0).text()).toEqual('Contact')
 
           });
 
-          it('should have first Nav item go to correct URL', () => {
+          xit('should have first Nav item go to correct URL', () => {
             
           });
 
-          it('should have second Nav item go to correct URL', () => {
+          xit('should have second Nav item go to correct URL', () => {
 
           });
 
-          it('should have third Nav item go to correct URL', () => {
+          xit('should have third Nav item go to correct URL', () => {
             
           });
         });
       });
     });
-    describe('Main container', () => {
-      it('should have top level container be a Grid component', () => {
-        
+    describe('content container', () => {
+      it('should have top level container be a Jumbotron component', () => {
+        expect(wrapper.childAt(1).type()).toEqual(Jumbotron)
+
+      });
+      it('should have the next component be a Grid component', () => {
+        expect(wrapper.childAt(1).childAt(0).type()).toEqual(Grid)
+
       });
       it('should have props.children inside Grid', () => {
-
+        expect(wrapper.childAt(1).childAt(0).childAt(0).text()).toEqual("I am a child!")
       });
     });
-    it('should have a footer with correct text', () => {
-
+    describe('footer', () => {
+      it('should have a footer with correct text', () => {
+        expect(wrapper.childAt(2).html())
+          .toEqual(`<footer>© Copyright ${new Date().getFullYear()}, Sky Harbor Apps LLC</footer>`)
+      });
     });
   });
 });

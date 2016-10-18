@@ -29,7 +29,7 @@ class App extends Component {
             { this.props.children }
           </Grid>
         </Jumbotron>
-        <footer>© Copyright 2016, Sky Harbor Apps LLC</footer>
+        <footer>© Copyright {new Date().getFullYear()}, Sky Harbor Apps LLC</footer>
       </div>
     );
   }
