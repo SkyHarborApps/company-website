@@ -9,9 +9,9 @@ export class App extends Component {
   render() {
     return (
       <div>
-        <Navbar inverse fixedTop>
+        <Navbar inverse fixedTop fluid>
           <Grid className="navContainer">
-            <Col lg={5} className="navContainer">
+            <Col sm={5} md={5} lg={5} className="navContainer">
               <Navbar.Header>
                 <Navbar.Brand className="brand">
                   <Link to="/">Sky Harbor Apps</Link>
@@ -19,7 +19,7 @@ export class App extends Component {
                 <Navbar.Toggle />
               </Navbar.Header>
             </Col>
-            <Col lg={5}>
+            <Col sm={7} md={7} lg={5}>
               <Navbar.Collapse>
                 <Nav pullRight>
                   <LinkContainer to='/blog'>

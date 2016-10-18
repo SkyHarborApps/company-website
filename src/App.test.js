@@ -45,6 +45,14 @@ describe('App', () => {
       it('should have Col have correct lg prop val', () => {
         expect(wrapper.childAt(0).childAt(0).childAt(0).props().lg).toEqual(5)
       });
+
+      it('should have Col have correct md prop val', () => {
+        expect(wrapper.childAt(0).childAt(0).childAt(0).props().md).toEqual(5)
+      });
+
+      it('should have Col have correct sm prop val', () => {
+        expect(wrapper.childAt(0).childAt(0).childAt(0).props().sm).toEqual(5)
+      });
       
       it('should have a Navbar.Header as first child of Col', () => {
         expect(wrapper.childAt(0).childAt(0).childAt(0).childAt(0).type()).toEqual(Navbar.Header)
@@ -75,7 +83,14 @@ describe('App', () => {
 
       it('should have second Col have correct lg prop val', () => {
         expect(wrapper.childAt(0).childAt(0).childAt(1).props().lg).toEqual(5)
+      });
 
+      it('should have second Col have correct md prop val', () => {
+        expect(wrapper.childAt(0).childAt(0).childAt(1).props().md).toEqual(7)
+      });
+
+      it('should have second Col have correct sm prop val', () => {
+        expect(wrapper.childAt(0).childAt(0).childAt(1).props().sm).toEqual(7)
       });
 
       it('should have a Navbar.Collapse component next', () => {

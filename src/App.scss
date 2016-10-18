@@ -4,8 +4,15 @@
 
 .content {
     padding-top: 2.5em;
+    text-align: justify;
 }
 
 .navContainer {
-    padding: 0px !important; // To override padding in navbar that forces header and toggle towards the center
+    padding: 0 !important; // To override padding in navbar that forces header and toggle towards the center
+}
+
+footer {
+    text-align: center;
+    margin-top: -20px;
+    padding-bottom: 10px;
 }
