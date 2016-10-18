@@ -5,3 +5,7 @@
 .content {
     padding-top: 2.5em;
 }
+
+.navContainer {
+    padding: 0px !important; // To override padding in navbar that forces header and toggle towards the center
+}

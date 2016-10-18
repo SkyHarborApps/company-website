@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { LinkContainer } from 'react-router-bootstrap'
 import { App } from './App';
-import { Grid, Navbar, Jumbotron, NavItem, Nav } from 'react-bootstrap';
+import { Grid, Navbar, Jumbotron, NavItem, Nav, Col } from 'react-bootstrap';
 import { browserHistory, Link } from 'react-router'
 
 
@@ -33,13 +33,25 @@ describe('App', () => {
         expect(wrapper.childAt(0).childAt(0).type()).toEqual(Grid)
 
       });
-      
-      it('should have a Navbar.Header after Grid', () => {
-        expect(wrapper.childAt(0).childAt(0).childAt(0).type()).toEqual(Navbar.Header)
+
+      it('should have Grid have class navContainer to handle padding on collapsible navbar widget', () => {
+        expect(wrapper.childAt(0).childAt(0).props().className).toEqual('navContainer')
       });
 
-      it('should have a Navbar.Brand as nexxt component', () => {
-        expect(wrapper.childAt(0).childAt(0).childAt(0).childAt(0).type()).toEqual(Navbar.Brand)
+      it('should have a Col as first child of Grid', () => {
+        expect(wrapper.childAt(0).childAt(0).childAt(0).type()).toEqual(Col)
+      });
+
+      it('should have Col have correct lg prop val', () => {
+        expect(wrapper.childAt(0).childAt(0).childAt(0).props().lg).toEqual(5)
+      });
+      
+      it('should have a Navbar.Header as first child of Col', () => {
+        expect(wrapper.childAt(0).childAt(0).childAt(0).childAt(0).type()).toEqual(Navbar.Header)
+      });
+
+      it('should have a Navbar.Brand as next component', () => {
+        expect(wrapper.childAt(0).childAt(0).childAt(0).childAt(0).childAt(0).type()).toEqual(Navbar.Brand)
       });
 
       it('should have Navbar.Brand contain a Link to index', () => {
@@ -51,8 +63,23 @@ describe('App', () => {
         expect(wrapper.find(Navbar.Brand).childAt(0).childAt(0).text()).toEqual('Sky Harbor Apps')
       });
 
+      it('should have a Navbar.Toggle after Navbar.Brand', () => {
+        expect(wrapper.childAt(0).childAt(0).childAt(0).childAt(0).childAt(1).type()).toEqual(Navbar.Toggle)
+
+      });
+
+      it('should have Col as second child of Grid', () => {
+        expect(wrapper.childAt(0).childAt(0).childAt(1).type()).toEqual(Col)
+
+      });
+
+      it('should have second Col have correct lg prop val', () => {
+        expect(wrapper.childAt(0).childAt(0).childAt(1).props().lg).toEqual(5)
+
+      });
+
       it('should have a Navbar.Collapse component next', () => {
-        expect(wrapper.childAt(0).childAt(0).childAt(1).type()).toEqual(Navbar.Collapse)
+        expect(wrapper.childAt(0).childAt(0).childAt(1).childAt(0).type()).toEqual(Navbar.Collapse)
       });
 
       it('should remove hover, focus, and active events from Navbar.Brand', () => {
@@ -121,8 +148,16 @@ describe('App', () => {
         expect(wrapper.childAt(1).childAt(0).props().className).toEqual('content')
       });
 
+      it('should have first child be Col', () => {
+        expect(wrapper.childAt(1).childAt(0).childAt(0).type()).toEqual(Col)
+      });
+
+      it('should have Col have correct lg prop val', () => {
+        expect(wrapper.childAt(1).childAt(0).childAt(0).props().lg).toEqual(10)
+      });
+
       it('should have props.children inside Grid', () => {
-        expect(wrapper.childAt(1).childAt(0).childAt(0).text()).toEqual("I am a child!")
+        expect(wrapper.childAt(1).childAt(0).childAt(0).childAt(0).text()).toEqual("I am a child!")
       });
     });
     describe('footer', () => {
