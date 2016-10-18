@@ -1,25 +1,33 @@
 import React, { Component } from 'react';
 import { Grid, Navbar, Jumbotron, NavItem, Nav } from 'react-bootstrap';
-import './App.css'
-import { browserHistory, Link } from 'react-router'
+import './App.scss'
+import { Link } from 'react-router'
+import {LinkContainer} from 'react-router-bootstrap'
 
-class App extends Component {
+export class App extends Component {
+
   render() {
     return (
       <div>
         <Navbar inverse fixedTop>
           <Grid>
               <Navbar.Header>
-                <Navbar.Brand>
+                <Navbar.Brand className="brand">
                   <Link to="/">Sky Harbor Apps</Link>
                 </Navbar.Brand>
                 <Navbar.Toggle />
               </Navbar.Header>
               <Navbar.Collapse>
                 <Nav pullRight>
-                  <NavItem onClick={()=> { browserHistory.push('blog') }}>Blog</NavItem>
-                  <NavItem onClick={()=> { browserHistory.push('portfolio')}}>Portfolio</NavItem>
-                  <NavItem onClick={()=> { browserHistory.push('contact') }}>Contact</NavItem>
+                  <LinkContainer to='/blog'>
+                    <NavItem>Blog</NavItem>
+                  </LinkContainer>
+                  <LinkContainer to='/portfolio'>
+                    <NavItem>Portfolio</NavItem>
+                  </LinkContainer>
+                  <LinkContainer to='/contact'>
+                    <NavItem>Contact</NavItem>
+                  </LinkContainer>
                 </Nav>
               </Navbar.Collapse>
           </Grid>
@@ -34,5 +42,3 @@ class App extends Component {
     );
   }
 }
-
-export default App;

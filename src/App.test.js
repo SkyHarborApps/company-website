@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import App from './App';
+import { LinkContainer } from 'react-router-bootstrap'
+import { App } from './App';
 import { Grid, Navbar, Jumbotron, NavItem, Nav } from 'react-bootstrap';
 import { browserHistory, Link } from 'react-router'
 
@@ -10,7 +11,7 @@ describe('App', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallow(<App children={'I am a child!'} />);
+    wrapper = shallow(<App children={'I am a child!'} location={{location: {pathname: 'blog'}}} />);
   });
 
   describe('Layout', () => {
@@ -53,6 +54,10 @@ describe('App', () => {
       it('should have a Navbar.Collapse component next', () => {
         expect(wrapper.childAt(0).childAt(0).childAt(1).type()).toEqual(Navbar.Collapse)
       });
+
+      it('should remove hover, focus, and active events from Navbar.Brand', () => {
+        expect(wrapper.find(Navbar.Brand).props().className).toEqual('brand')
+      });
       
       describe('Navbar.Collapse', () => {
         
@@ -70,31 +75,35 @@ describe('App', () => {
             expect(wrapper.find(NavItem).length).toEqual(3)
           });
 
+          it('should have 3 LinkContainers', () => {
+            expect(wrapper.find(LinkContainer).length).toEqual(3)
+          });
+
           it('should have a first Nav item with correct text', () => {
-            expect(wrapper.find(Nav).childAt(0).childAt(0).text()).toEqual('Blog')
+            expect(wrapper.find(Nav).childAt(0).childAt(0).childAt(0).text()).toEqual('Blog')
 
           });
           
           it('should have a second Nav item with correct text', () => {
-            expect(wrapper.find(Nav).childAt(1).childAt(0).text()).toEqual('Portfolio')
+            expect(wrapper.find(Nav).childAt(1).childAt(0).childAt(0).text()).toEqual('Portfolio')
 
           });
           
           it('should have a third Nav item with correct text', () => {
-            expect(wrapper.find(Nav).childAt(2).childAt(0).text()).toEqual('Contact')
+            expect(wrapper.find(Nav).childAt(2).childAt(0).childAt(0).text()).toEqual('Contact')
+          });
+
+          it('should have correct to prop for first LinkContainer', () => {
+            expect(wrapper.find(Nav).childAt(0).props().to).toEqual('/blog')
+          });
+
+          it('should have correct to prop for second LinkContainer', () => {
+            expect(wrapper.find(Nav).childAt(1).props().to).toEqual('/portfolio')
 
           });
 
-          xit('should have first Nav item go to correct URL', () => {
-            
-          });
-
-          xit('should have second Nav item go to correct URL', () => {
-
-          });
-
-          xit('should have third Nav item go to correct URL', () => {
-            
+          it('should have correct to prop for third LinkContainer', () => {
+            expect(wrapper.find(Nav).childAt(2).props().to).toEqual('/contact')
           });
         });
       });
