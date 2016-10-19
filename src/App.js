@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Col, Navbar, Jumbotron, NavItem, Nav } from 'react-bootstrap';
+import { Grid, Col, Navbar, NavItem, Nav } from 'react-bootstrap';
 import './App.scss'
 import { Link } from 'react-router'
 import {LinkContainer} from 'react-router-bootstrap'

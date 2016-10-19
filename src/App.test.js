@@ -151,28 +151,24 @@ describe('App', () => {
       });
     });
     describe('content container', () => {
-      it('should have top level container be a Jumbotron component', () => {
-        expect(wrapper.childAt(1).type()).toEqual(Jumbotron)
-
-      });
       it('should have the next component be a Grid component', () => {
-        expect(wrapper.childAt(1).childAt(0).type()).toEqual(Grid)
+        expect(wrapper.childAt(0).childAt(0).type()).toEqual(Grid)
       });
 
       it('should have Grid have correct class', () => {
-        expect(wrapper.childAt(1).childAt(0).props().className).toEqual('content')
+        expect(wrapper.childAt(1).props().className).toEqual('content')
       });
 
       it('should have first child be Col', () => {
-        expect(wrapper.childAt(1).childAt(0).childAt(0).type()).toEqual(Col)
+        expect(wrapper.childAt(1).childAt(0).type()).toEqual(Col)
       });
 
       it('should have Col have correct lg prop val', () => {
-        expect(wrapper.childAt(1).childAt(0).childAt(0).props().lg).toEqual(10)
+        expect(wrapper.childAt(1).childAt(0).props().lg).toEqual(10)
       });
 
       it('should have props.children inside Grid', () => {
-        expect(wrapper.childAt(1).childAt(0).childAt(0).childAt(0).text()).toEqual("I am a child!")
+        expect(wrapper.childAt(1).childAt(0).childAt(0).text()).toEqual("I am a child!")
       });
     });
     describe('footer', () => {
