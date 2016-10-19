@@ -34,13 +34,11 @@ export const App = (props) => {
           </Col>
         </Grid>
       </Navbar>
-      <Jumbotron>
         <Grid className="content">
           <Col lg={10}>
             { props.children }
           </Col>
         </Grid>
-      </Jumbotron>
       <footer>© Copyright {new Date().getFullYear()}, Sky Harbor Apps LLC</footer>
     </div>
   );
