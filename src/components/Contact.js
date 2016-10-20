@@ -2,7 +2,7 @@
  * Created by danielhollcraft on 10/17/16.
  */
 import React from 'react';
-import { Col, Form, FormGroup, FormControl, ControlLabel, Button, } from 'react-bootstrap';
+import { Col, Form, FormGroup, FormControl, ControlLabel, Button} from 'react-bootstrap';
 
 export const Contact = () => {
   return (

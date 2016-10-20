@@ -24,7 +24,6 @@ describe('Portfolio', () => {
       expect(wrapper.type()).toEqual(Row)
     });
 
-
     describe('Columns', () => {
       it('should have correct number of Cols', () => {
         expect(wrapper.find(Col).length).toEqual(6)
