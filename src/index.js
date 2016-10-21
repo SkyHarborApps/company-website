@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { App } from './layout/App';
+import { App } from './layouts/App';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
-import { Home } from './components/Home'
-import { Blog } from './components/Blog'
-import { Portfolio } from './components/Portfolio'
-import { Contact } from './components/Contact'
+import { Home } from './layouts/Home'
+import { Blog } from './layouts/Blog'
+import { Portfolio } from './layouts/Portfolio'
+import { Contact } from './layouts/Contact'
 
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 
