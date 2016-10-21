@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { LinkContainer } from 'react-router-bootstrap'
-import { App } from '../App';
+import { App } from './App';
 import { Grid, Navbar, Jumbotron, NavItem, Nav, Col } from 'react-bootstrap';
 import { browserHistory, Link } from 'react-router'
 
