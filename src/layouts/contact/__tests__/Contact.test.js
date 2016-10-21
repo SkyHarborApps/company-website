@@ -117,6 +117,11 @@ describe('Form', () => {
 
       it('should have placeholder have correct value', () => {
         expect(secondFormGroup.find(Col).at(1).childAt(0).props().placeholder).toEqual('Your message...');
+      })
+
+      it('should have correct value prop', () => {
+        expect(secondFormGroup.find(Col).at(1).childAt(0).props().value).toEqual('');
+
       });
     });
 
@@ -146,11 +151,13 @@ describe('Form', () => {
         expect(thirdFormGroup.find(Col).at(0).childAt(0).childAt(0).text()).toEqual('Send')
       });
     });
+  });
+  describe('Form Validation', () => {
+    describe('Email Input', () => {
 
-    describe('Form Validation', () => {
-      describe('Email Input', () => {
+      describe('Layout', () => {
         it('should have a Form.Feedback component after Form  Control', () => {
-            expect(firstFormGroup.find(Col).at(1).childAt(1).type()).toEqual(FormControl.Feedback)
+          expect(firstFormGroup.find(Col).at(1).childAt(1).type()).toEqual(FormControl.Feedback)
         });
 
         it('should have a HelpBlock after Form.Feedback component', () => {
@@ -164,114 +171,161 @@ describe('Form', () => {
         it('should show no text in HelpBlock initially', () => {
           expect(firstFormGroup.find(Col).at(1).childAt(2).childAt(0).text()).toEqual('Required')
         });
+      });
 
-        describe('On Submit', () => {
-          it('should not be able to submit form if empty email field', () => {
-            thirdFormGroup.find(Button).simulate('click');
-            expect(api.contact).not.toHaveBeenCalled();
-          });
-
-          it('should set validation state correctly when email is empty on submit', () => {
-            thirdFormGroup.find(Button).simulate('click');
-            firstFormGroup = wrapper.find(FormGroup).at(0);
-            expect(firstFormGroup.props().validationState).toEqual('error');
-          });
-
-          it('should set validation state correctly when email is invalid on submit', () => {
-            wrapper.setState({email: 'hello'})
-            thirdFormGroup.find(Button).simulate('click');
-            firstFormGroup = wrapper.find(FormGroup).at(0);
-            expect(firstFormGroup.props().validationState).toEqual('error');
-          });
-
-          it('should not be able to submit form if a non email string', () => {
-            wrapper.setState({email: 'hello'})
-            thirdFormGroup.find(Button).simulate('click');
-            expect(api.contact).not.toHaveBeenCalled();
-          });
-
-          it('should show correct text in HelpBlock if email is invalid on submit', () => {
-            thirdFormGroup.find(Button).simulate('click');
-            firstFormGroup = wrapper.find(FormGroup).at(0);
-            expect(firstFormGroup.find(Col).at(1).childAt(2).childAt(0).text()).toEqual('Email Invalid')
-
-          });
+      describe('On Submit', () => {
+        it('should not be able to submit form if empty email field', () => {
+          thirdFormGroup.find(Button).simulate('click');
+          expect(api.contact).not.toHaveBeenCalled();
         });
 
-        describe('On Input Value Change', () => {
+        it('should set validation state correctly when email is empty on submit', () => {
+          thirdFormGroup.find(Button).simulate('click');
+          firstFormGroup = wrapper.find(FormGroup).at(0);
+          expect(firstFormGroup.props().validationState).toEqual('error');
+        });
 
-          it('should show correct text in HelpBlock if email is invalid on value change', () => {
-            wrapper.find(FormControl).at(0).simulate('change', {target: {
-              value: 'hello'
-            }});
-            firstFormGroup = wrapper.find(FormGroup).at(0);
-            expect(firstFormGroup.find(Col).at(1).childAt(2).childAt(0).text()).toEqual('Email Invalid')
-          });
+        it('should set validation state correctly when email is invalid on submit', () => {
+          wrapper.setState({email: 'hello'})
+          thirdFormGroup.find(Button).simulate('click');
+          firstFormGroup = wrapper.find(FormGroup).at(0);
+          expect(firstFormGroup.props().validationState).toEqual('error');
+        });
 
-          it('should show correct text in HelpBlock if email was invalid and now is ok', () => {
-            wrapper.setState({emailInvalidMessage: "Email Invalid"})
-            firstFormGroup = wrapper.find(FormGroup).at(0);
-            expect(firstFormGroup.find(Col).at(1).childAt(2).childAt(0).text()).toEqual('Email Invalid')
+        it('should not be able to submit form if a non email string', () => {
+          wrapper.setState({email: 'hello'})
+          thirdFormGroup.find(Button).simulate('click');
+          expect(api.contact).not.toHaveBeenCalled();
+        });
 
-            wrapper.find(FormControl).at(0).simulate('change', {target: {
-              value: 'hello@email.com'
-            }});
+        it('should show correct text in HelpBlock if email is invalid on submit', () => {
+          thirdFormGroup.find(Button).simulate('click');
+          firstFormGroup = wrapper.find(FormGroup).at(0);
+          expect(firstFormGroup.find(Col).at(1).childAt(2).childAt(0).text()).toEqual('Email Invalid')
 
-            firstFormGroup = wrapper.find(FormGroup).at(0);
-            expect(firstFormGroup.find(Col).at(1).childAt(2).childAt(0).text()).toEqual('')
-          });
-
-          it('should set validation state correctly when email is empty on input value change', () => {
-            wrapper.find(FormControl).at(0).simulate('change', {target: {
-              value: 'hello'
-            }});
-            firstFormGroup = wrapper.find(FormGroup).at(0);
-            expect(firstFormGroup.props().validationState).toEqual('error');
-          });
-
-          it('should reset HelpBlock message to correct state when input attempted but then erased', () => {
-            wrapper.find(FormControl).at(0).simulate('change', {target: {
-              value: 'hello'
-            }});
-
-            wrapper.find(FormControl).at(0).simulate('change', {target: {
-              value: ''
-            }});
-            firstFormGroup = wrapper.find(FormGroup).at(0);
-            expect(firstFormGroup.find(Col).at(1).childAt(2).childAt(0).text()).toEqual('Required')
-          });
         });
       });
 
-      describe('Message Input', () => {
-        it('should have a Form.Feedback component after Form  Control', () => {
+      describe('On Input Value Change', () => {
 
+        it('should show correct text in HelpBlock if email is invalid on value change', () => {
+          wrapper.find(FormControl).at(0).simulate('change', {target: {
+            value: 'hello'
+          }});
+          firstFormGroup = wrapper.find(FormGroup).at(0);
+          expect(firstFormGroup.find(Col).at(1).childAt(2).childAt(0).text()).toEqual('Email Invalid')
+        });
+
+        it('should show correct text in HelpBlock if email was invalid and now is ok', () => {
+          wrapper.setState({emailInvalidMessage: "Email Invalid"})
+          firstFormGroup = wrapper.find(FormGroup).at(0);
+          expect(firstFormGroup.find(Col).at(1).childAt(2).childAt(0).text()).toEqual('Email Invalid')
+
+          wrapper.find(FormControl).at(0).simulate('change', {target: {
+            value: 'hello@email.com'
+          }});
+
+          firstFormGroup = wrapper.find(FormGroup).at(0);
+          expect(firstFormGroup.find(Col).at(1).childAt(2).childAt(0).text()).toEqual('')
+        });
+
+        it('should set validation state correctly when email is empty on input value change', () => {
+          wrapper.find(FormControl).at(0).simulate('change', {target: {
+            value: 'hello'
+          }});
+          firstFormGroup = wrapper.find(FormGroup).at(0);
+          expect(firstFormGroup.props().validationState).toEqual('error');
+        });
+
+        it('should reset HelpBlock message to correct state when input attempted but then erased', () => {
+          wrapper.find(FormControl).at(0).simulate('change', {target: {
+            value: 'hello'
+          }});
+
+          wrapper.find(FormControl).at(0).simulate('change', {target: {
+            value: ''
+          }});
+          firstFormGroup = wrapper.find(FormGroup).at(0);
+          expect(firstFormGroup.find(Col).at(1).childAt(2).childAt(0).text()).toEqual('Required')
+        });
+
+        it('should display success state when input is valid', () => {
+          wrapper.find(FormControl).at(0).simulate('change', {target: {
+            value: 'hello@email.com'
+          }});
+          firstFormGroup = wrapper.find(FormGroup).at(0);
+
+          expect(firstFormGroup.props().validationState).toEqual('success');
+        });
+      });
+    });
+
+    describe('Message Input', () => {
+
+      describe('Layout', () => {
+        it('should have a Form.Feedback component after Form  Control', () => {
+          expect(secondFormGroup.find(Col).at(1).childAt(1).type()).toEqual(FormControl.Feedback)
         });
 
         it('should have a HelpBlock after Form.Feedback component', () => {
-
+          expect(secondFormGroup.find(Col).at(1).childAt(2).type()).toEqual(HelpBlock)
         });
 
+        it('should not have any issues with validation state initially', () => {
+          expect(secondFormGroup.props().validationState).toEqual(undefined);
+        });
+
+        it('should show no text in HelpBlock initially', () => {
+          expect(secondFormGroup.find(Col).at(1).childAt(2).childAt(0).text()).toEqual('Required')
+        });
+      });
+
+      describe('On Submit', () => {
         it('should not be able to submit form if message field is empty', () => {
+          wrapper.setState({email: 'hello@email.com'})
+          thirdFormGroup.find(Button).simulate('click');
+          expect(api.contact).not.toHaveBeenCalled();
 
         });
 
-        it('should show correct text in HelpBlock if textarea is empty', () => {
+        it('should set validation state correctly when text is empty on submit', () => {
+          thirdFormGroup.find(Button).simulate('click');
+          secondFormGroup = wrapper.find(FormGroup).at(1);
+          expect(secondFormGroup.props().validationState).toEqual('error');
+        });
+      });
 
+      describe('On Input Value Change', () => {
+        it('should set validation state correctly when text is empty on input value change', () => {
+          wrapper.find(FormControl).at(1).simulate('change', {target: {
+            value: ''
+          }});
+          secondFormGroup = wrapper.find(FormGroup).at(1);
+          expect(secondFormGroup.props().validationState).toEqual('error');
+        });
+
+        it('should display success state when input is valid', () => {
+          wrapper.find(FormControl).at(1).simulate('change', {target: {
+            value: 'Hello! How are you?'
+          }});
+
+          secondFormGroup = wrapper.find(FormGroup).at(1);
+
+          expect(secondFormGroup.props().validationState).toEqual('success');
         });
       });
 
     });
 
-    describe('Submitting Form', () => {
+  });
+  describe('Submitting Form', () => {
 
-      it('should send request to server', () => {
+    it('should send request to server', () => {
 
-      });
+    });
 
-      it('should send correct payload to server', () => {
+    it('should send correct payload to server', () => {
 
-      });
     });
   });
 });

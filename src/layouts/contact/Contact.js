@@ -14,7 +14,9 @@ export class Contact extends Component {
     this.state = {
       submitPressed: false,
       emailAttempted:false,
+      messageAttempted:false,
       email: '',
+      message: '',
       emailInvalidMessage: 'Required'
     };
   }
@@ -22,11 +24,17 @@ export class Contact extends Component {
   submit() {
     this.setState({submitPressed: true});
 
-    if (this.state.email.length > 0 && testEmail(this.state.email)) {
+    if (this.formInputValid()) {
       api.contact();
     } else {
       this.setState({emailInvalidMessage: "Email Invalid"});
     }
+  }
+
+  formInputValid() {
+    return this.state.email.length > 0
+      && testEmail(this.state.email)
+      && this.state.message.length > 0
   }
 
   handleEmailChange(e) {
@@ -50,17 +58,41 @@ export class Contact extends Component {
     }
   }
 
+  handleMessageChange(e) {
+    const message = e.target.value;
+
+    this.setState({message});
+
+    if(! this.state.messageAttempted) {
+      this.setState({messageAttempted: true});
+    }
+  }
+
   getEmailValidationState() {
     if (this.state.submitPressed || this.state.emailAttempted) {
       if (this.state.email.length === 0 || ! testEmail(this.state.email)) {
         return 'error'
+      } else {
+        return 'success'
       }
     }
   }
 
+  getMessageValidationState() {
+    if (this.state.submitPressed || this.state.messageAttempted) {
+      if (this.state.message.length === 0) {
+        return 'error'
+      } else {
+        return 'success'
+      }
+    }
+
+    return undefined
+  }
+
   render() {
 
-    const { email, emailInvalidMessage } = this.state;
+    const { email, emailInvalidMessage, message } = this.state;
 
     // TODO: Refactor each input into it's own separate component
     return (
@@ -84,12 +116,22 @@ export class Contact extends Component {
           </Col>
         </FormGroup>
 
-        <FormGroup controlId="formControlsTextarea">
+        <FormGroup
+          controlId="formControlsTextarea"
+          validationState={this.getMessageValidationState()}
+        >
           <Col componentClass={ControlLabel} sm={2}>
             Message
           </Col>
           <Col sm={10}>
-            <FormControl componentClass="textarea" placeholder="Your message..." />
+            <FormControl
+              componentClass="textarea"
+              placeholder="Your message..."
+              value={message}
+              onChange={this.handleMessageChange.bind(this)}
+            />
+            <FormControl.Feedback />
+            <HelpBlock>Required</HelpBlock>
           </Col>
         </FormGroup>
 
