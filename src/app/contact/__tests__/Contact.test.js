@@ -6,7 +6,7 @@ import React from 'react';
 import { Contact } from '../Contact';
 import { shallow, mount } from 'enzyme';
 import { Col, Form, FormGroup, FormControl, ControlLabel, Button, HelpBlock} from 'react-bootstrap';
-import api from '../../../api/api'
+import api from '../api'
 
 
 describe('Form', () => {
@@ -29,11 +29,11 @@ describe('Form', () => {
   describe('Layout', () => {
 
     it('should have Form as top component', () => {
-      expect(wrapper.type()).toEqual(Form);
+      expect(wrapper.childAt(0).type()).toEqual(Form);
     });
 
     it('should have form have horizontal prop = true', () => {
-      expect(wrapper.props().horizontal).toEqual(true);
+      expect(wrapper.childAt(0).props().horizontal).toEqual(true);
 
     });
 
@@ -199,10 +199,16 @@ describe('Form', () => {
         });
 
         it('should show correct text in HelpBlock if email is invalid on submit', () => {
+          wrapper.setState({email: 'hello'})
           thirdFormGroup.find(Button).simulate('click');
           firstFormGroup = wrapper.find(FormGroup).at(0);
           expect(firstFormGroup.find(Col).at(1).childAt(2).childAt(0).text()).toEqual('Email Invalid')
+        });
 
+        it('should show correct text in HelpBlock on a submit when input is never touched', () => {
+          thirdFormGroup.find(Button).simulate('click');
+          firstFormGroup = wrapper.find(FormGroup).at(0);
+          expect(firstFormGroup.find(Col).at(1).childAt(2).childAt(0).text()).toEqual('Required');
         });
       });
 
@@ -320,11 +326,24 @@ describe('Form', () => {
   });
   describe('Submitting Form', () => {
 
-    it('should send request to server', () => {
+    beforeEach(() => {
+      wrapper.setState({message: "hello", email: 'hello@email.com'})
+      thirdFormGroup.find(Button).simulate('click');
+    });
+
+    it('should call contact request if form is valid', () => {
+      expect(api.contact).toHaveBeenCalled();
+    });
+
+    it('should pass correct parameters to server on submit', () => {
+      expect(api.contact).toHaveBeenCalledWith('hello@email.com', 'hello');
+    });
+
+    it('should react as expected to a failed request', () => {
 
     });
 
-    it('should send correct payload to server', () => {
+    it('should act as expected to a successful request', () => {
 
     });
   });

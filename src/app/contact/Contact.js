@@ -3,8 +3,8 @@
  */
 import React, {Component} from 'react';
 import { Col, Form, FormGroup, FormControl, ControlLabel, Button, HelpBlock} from 'react-bootstrap';
-import api from '../../api/api'
-import {testEmail} from './helpers'
+import helpers from './helpers'
+import Alert from "../alerts/Alert"
 
 
 export class Contact extends Component {
@@ -22,19 +22,7 @@ export class Contact extends Component {
   }
 
   submit() {
-    this.setState({submitPressed: true});
-
-    if (this.formInputValid()) {
-      api.contact();
-    } else {
-      this.setState({emailInvalidMessage: "Email Invalid"});
-    }
-  }
-
-  formInputValid() {
-    return this.state.email.length > 0
-      && testEmail(this.state.email)
-      && this.state.message.length > 0
+    this.setState(helpers.submit(this.state.email, this.state.message))
   }
 
   handleEmailChange(e) {
@@ -47,7 +35,7 @@ export class Contact extends Component {
       this.setState({emailAttempted: true});
     }
 
-    if (testEmail(email)) {
+    if (helpers.testEmail(email)) {
       this.setState({emailInvalidMessage: ""});
     } else {
       if(email.length === 0) {
@@ -70,7 +58,7 @@ export class Contact extends Component {
 
   getEmailValidationState() {
     if (this.state.submitPressed || this.state.emailAttempted) {
-      if (this.state.email.length === 0 || ! testEmail(this.state.email)) {
+      if (this.state.email.length === 0 || ! helpers.testEmail(this.state.email)) {
         return 'error'
       } else {
         return 'success'
@@ -96,7 +84,8 @@ export class Contact extends Component {
 
     // TODO: Refactor each input into it's own separate component
     return (
-      <Form horizontal>
+      <div>
+        <Form horizontal>
         <FormGroup
           controlId="formHorizontalEmail"
           validationState={this.getEmailValidationState()}
@@ -143,6 +132,7 @@ export class Contact extends Component {
           </Col>
         </FormGroup>
       </Form>
+      </div>
     )
   }
 }
