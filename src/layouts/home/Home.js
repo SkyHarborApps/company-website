@@ -2,7 +2,7 @@
  * Created by danielhollcraft on 10/17/16.
  */
 import React from 'react';
-import Profile from '../../public/profile.png'
+import Profile from '../../../public/profile.png'
 import {Image} from 'react-bootstrap'
 import './Home.scss'
 

@@ -2,7 +2,7 @@
  * Created by danielhollcraft on 10/18/16.
  */
 import React from 'react';
-import { Home } from '../Home';
+import { Home } from './Home';
 import { shallow } from 'enzyme';
 import {Image} from 'react-bootstrap'
 

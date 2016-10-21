@@ -2,7 +2,7 @@
  * Created by danielhollcraft on 10/20/16.
  */
 import React from 'react';
-import { Portfolio } from '../Portfolio';
+import { Portfolio } from '../portfolio/Portfolio';
 import { shallow } from 'enzyme';
 import { Col, Thumbnail, Row} from 'react-bootstrap';
 

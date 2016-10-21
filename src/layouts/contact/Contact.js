@@ -3,7 +3,8 @@
  */
 import React, {Component} from 'react';
 import { Col, Form, FormGroup, FormControl, ControlLabel, Button, HelpBlock} from 'react-bootstrap';
-import api from '../api/api'
+import api from '../../api/api'
+import {testEmail} from './helpers'
 
 
 export class Contact extends Component {
@@ -18,15 +19,10 @@ export class Contact extends Component {
     };
   }
 
-  // regex tests: http://jsfiddle.net/ghvj4gy9/embedded/result,js/
-  testEmail(email) {
-    return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
-  }
-
   submit() {
     this.setState({submitPressed: true});
 
-    if (this.state.email.length > 0 && this.testEmail(this.state.email)) {
+    if (this.state.email.length > 0 && testEmail(this.state.email)) {
       api.contact();
     } else {
       this.setState({emailInvalidMessage: "Email Invalid"})
@@ -43,7 +39,7 @@ export class Contact extends Component {
       this.setState({emailAttempted: true})
     }
 
-    if (this.testEmail(email) ) {
+    if (testEmail(email) ) {
       this.setState({emailInvalidMessage: ""})
     } else {
       this.setState({emailInvalidMessage: "Email Invalid"})
@@ -52,7 +48,7 @@ export class Contact extends Component {
 
   getEmailValidationState() {
     if (this.state.submitPressed || this.state.emailAttempted) {
-      if (this.state.email.length === 0 || ! this.testEmail(this.state.email)) {
+      if (this.state.email.length === 0 || ! testEmail(this.state.email)) {
         return 'error'
       }
     }
@@ -62,7 +58,7 @@ export class Contact extends Component {
 
     const { email, emailInvalidMessage } = this.state;
 
-    // TODO: Refactor each field into it's own separate component
+    // TODO: Refactor each input into it's own separate component
     return (
       <Form horizontal>
         <FormGroup

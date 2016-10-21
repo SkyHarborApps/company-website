@@ -4,10 +4,10 @@ import { App } from './layouts/App';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
-import { Home } from './layouts/Home'
-import { Blog } from './layouts/Blog'
-import { Portfolio } from './layouts/Portfolio'
-import { Contact } from './layouts/Contact'
+import { Home } from './layouts/home/Home'
+import { Blog } from './layouts/blog/Blog'
+import { Portfolio } from './layouts/portfolio/Portfolio'
+import { Contact } from './layouts/contact/Contact'
 
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 

@@ -6,7 +6,7 @@ import React from 'react';
 import { Contact } from '../Contact';
 import { shallow, mount } from 'enzyme';
 import { Col, Form, FormGroup, FormControl, ControlLabel, Button, HelpBlock} from 'react-bootstrap';
-import api from '../../api/api'
+import api from '../../../api/api'
 
 
 describe('Form', () => {
