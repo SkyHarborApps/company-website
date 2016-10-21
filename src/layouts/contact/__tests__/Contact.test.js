@@ -228,6 +228,18 @@ describe('Form', () => {
             firstFormGroup = wrapper.find(FormGroup).at(0);
             expect(firstFormGroup.props().validationState).toEqual('error');
           });
+
+          it('should reset HelpBlock message to correct state when input attempted but then erased', () => {
+            wrapper.find(FormControl).at(0).simulate('change', {target: {
+              value: 'hello'
+            }});
+
+            wrapper.find(FormControl).at(0).simulate('change', {target: {
+              value: ''
+            }});
+            firstFormGroup = wrapper.find(FormGroup).at(0);
+            expect(firstFormGroup.find(Col).at(1).childAt(2).childAt(0).text()).toEqual('Required')
+          });
         });
       });
 

@@ -25,24 +25,28 @@ export class Contact extends Component {
     if (this.state.email.length > 0 && testEmail(this.state.email)) {
       api.contact();
     } else {
-      this.setState({emailInvalidMessage: "Email Invalid"})
+      this.setState({emailInvalidMessage: "Email Invalid"});
     }
   }
 
   handleEmailChange(e) {
 
-    const email = e.target.value
+    const email = e.target.value;
 
-    this.setState({email})
+    this.setState({email});
 
     if(! this.state.emailAttempted) {
-      this.setState({emailAttempted: true})
+      this.setState({emailAttempted: true});
     }
 
-    if (testEmail(email) ) {
-      this.setState({emailInvalidMessage: ""})
+    if (testEmail(email)) {
+      this.setState({emailInvalidMessage: ""});
     } else {
-      this.setState({emailInvalidMessage: "Email Invalid"})
+      if(email.length === 0) {
+        this.setState({emailInvalidMessage: "Required"});
+      } else {
+        this.setState({emailInvalidMessage: "Email Invalid"});
+      }
     }
   }
 
