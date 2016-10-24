@@ -26,56 +26,25 @@ export class Contact extends Component {
   }
 
   handleEmailChange(e) {
-
-    const email = e.target.value;
-
-    this.setState({email});
-
-    if(! this.state.emailAttempted) {
-      this.setState({emailAttempted: true});
-    }
-
-    if (helpers.testEmail(email)) {
-      this.setState({emailInvalidMessage: ""});
-    } else {
-      if(email.length === 0) {
-        this.setState({emailInvalidMessage: "Required"});
-      } else {
-        this.setState({emailInvalidMessage: "Email Invalid"});
-      }
-    }
+    this.setState(helpers.handleEmailChange(e.target.value, this.state.emailAttempted))
   }
 
   handleMessageChange(e) {
-    const message = e.target.value;
-
-    this.setState({message});
-
-    if(! this.state.messageAttempted) {
-      this.setState({messageAttempted: true});
-    }
+    this.setState(helpers.handleMessageChange(e.target.value, this.state.emailAttempted))
   }
 
   getEmailValidationState() {
-    if (this.state.submitPressed || this.state.emailAttempted) {
-      if (this.state.email.length === 0 || ! helpers.testEmail(this.state.email)) {
-        return 'error'
-      } else {
-        return 'success'
-      }
-    }
+    const { submitPressed, email, emailAttempted } = this.state;
+
+    // TODO: create better syntax for adding multiple conditions
+    return helpers.getValidationState(
+      submitPressed, emailAttempted, email.length, helpers.testEmail(this.state.email)
+    );
   }
 
   getMessageValidationState() {
-    if (this.state.submitPressed || this.state.messageAttempted) {
-      if (this.state.message.length === 0) {
-        return 'error'
-      } else {
-        return 'success'
-      }
-    }
-
-    return undefined
+    const { submitPressed, message, messageAttempted } = this.state;
+    return helpers.getValidationState(submitPressed, messageAttempted, message.length);
   }
 
   render() {
