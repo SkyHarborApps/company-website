@@ -4,7 +4,7 @@
 import api from './api'
 
 // regex tests: http://jsfiddle.net/ghvj4gy9/embedded/result,js/
-function testEmail(email) {
+function isValidEmail(email) {
   return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
 }
 
@@ -18,40 +18,42 @@ function submit(email, message) {
     api.contact(email, message);
   } else {
     if(email.length > 0) {
-      newState.emailInvalidMessage = "Email Invalid";
+      newState.emailHelpText = "Email Invalid";
     }
   }
 
   return newState
 }
 
-function handleEmailChange(email, emailAttempted) {
+function handleEmailChange(email, attempted) {
 
   const newState = { email };
 
-  if(! emailAttempted) {
-    newState.emailAttempted = true
-  }
+  if(! attempted)
+    newState.emailAttempted = true;
 
-  if (testEmail(email)) {
-    newState.emailInvalidMessage = ""
-  } else {
-    if(email.length === 0) {
-      newState.emailInvalidMessage = "Required"
-    } else {
-      newState.emailInvalidMessage = "Email Invalid";
-    }
-  }
+  newState.emailHelpText = isValidEmail(email) ? '' : isFieldEmpty(email, 'Email Invalid')
 
   return newState
 }
 
-function handleMessageChange(message, messageAttempted) {
-  return messageAttempted ? {message} : {message, messageAttempted: true}
+function handleMessageChange(message, attempted) {
+  const newState = { message };
+
+  if(! attempted)
+    newState.messageAttempted = true;
+
+  newState.messageHelpText = isFieldEmpty(message)
+
+  return newState
+}
+
+function isFieldEmpty(fieldContents, alternateMessage='', errorMessage='Required') {
+  return fieldContents.length === 0 ? errorMessage: alternateMessage
 }
 
 function formInputValid(email, message) {
-  return email.length > 0 && testEmail(email) && message.length > 0
+  return email.length > 0 && isValidEmail(email) && message.length > 0
 }
 
 /**
@@ -74,7 +76,7 @@ function getValidationState(submitPressed, attempted, textLength, otherTest = tr
 
 export default {
   submit,
-  testEmail,
+  isValidEmail,
   handleEmailChange,
   handleMessageChange,
   getValidationState

@@ -17,7 +17,8 @@ export class Contact extends Component {
       messageAttempted:false,
       email: '',
       message: '',
-      emailInvalidMessage: 'Required'
+      emailHelpText: 'Required',
+      messageHelpText: 'Required'
     };
   }
 
@@ -38,7 +39,7 @@ export class Contact extends Component {
 
     // TODO: create better syntax for adding multiple conditions
     return helpers.getValidationState(
-      submitPressed, emailAttempted, email.length, helpers.testEmail(this.state.email)
+      submitPressed, emailAttempted, email.length, helpers.isValidEmail(this.state.email)
     );
   }
 
@@ -49,11 +50,10 @@ export class Contact extends Component {
 
   render() {
 
-    const { email, emailInvalidMessage, message } = this.state;
+    const { email, emailHelpText, message, messageHelpText } = this.state;
 
     // TODO: Refactor each input into it's own separate component
     return (
-      <div>
         <Form horizontal>
         <FormGroup
           controlId="formHorizontalEmail"
@@ -70,7 +70,7 @@ export class Contact extends Component {
               onChange={this.handleEmailChange.bind(this)}
             />
             <FormControl.Feedback />
-            <HelpBlock>{emailInvalidMessage}</HelpBlock>
+            <HelpBlock>{emailHelpText}</HelpBlock>
           </Col>
         </FormGroup>
 
@@ -89,7 +89,7 @@ export class Contact extends Component {
               onChange={this.handleMessageChange.bind(this)}
             />
             <FormControl.Feedback />
-            <HelpBlock>Required</HelpBlock>
+            <HelpBlock>{messageHelpText}</HelpBlock>
           </Col>
         </FormGroup>
 
@@ -101,7 +101,6 @@ export class Contact extends Component {
           </Col>
         </FormGroup>
       </Form>
-      </div>
     )
   }
 }

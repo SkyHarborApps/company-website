@@ -29,11 +29,11 @@ describe('Form', () => {
   describe('Layout', () => {
 
     it('should have Form as top component', () => {
-      expect(wrapper.childAt(0).type()).toEqual(Form);
+      expect(wrapper.type()).toEqual(Form);
     });
 
     it('should have form have horizontal prop = true', () => {
-      expect(wrapper.childAt(0).props().horizontal).toEqual(true);
+      expect(wrapper.props().horizontal).toEqual(true);
 
     });
 
@@ -223,7 +223,7 @@ describe('Form', () => {
         });
 
         it('should show correct text in HelpBlock if email was invalid and now is ok', () => {
-          wrapper.setState({emailInvalidMessage: "Email Invalid"})
+          wrapper.setState({emailHelpText: "Email Invalid"})
           firstFormGroup = wrapper.find(FormGroup).at(0);
           expect(firstFormGroup.find(Col).at(1).childAt(2).childAt(0).text()).toEqual('Email Invalid')
 
@@ -319,6 +319,27 @@ describe('Form', () => {
 
           expect(secondFormGroup.props().validationState).toEqual('success');
         });
+
+        it('should not have HelpBlock text if valid', () => {
+          wrapper.find(FormControl).at(1).simulate('change', {target: {
+            value: 'Hello'
+          }});
+          secondFormGroup = wrapper.find(FormGroup).at(1);
+          expect(secondFormGroup.find(Col).at(1).childAt(2).childAt(0).text()).toEqual('')
+        });
+
+        it('should reset HelpBlock message to correct state when input attempted but then erased', () => {
+          wrapper.find(FormControl).at(1).simulate('change', {target: {
+            value: 'hello'
+          }});
+
+          wrapper.find(FormControl).at(1).simulate('change', {target: {
+            value: ''
+          }});
+          secondFormGroup = wrapper.find(FormGroup).at(1);
+          expect(secondFormGroup.find(Col).at(1).childAt(2).childAt(0).text()).toEqual('Required')
+        });
+
       });
 
     });
@@ -344,6 +365,10 @@ describe('Form', () => {
     });
 
     it('should act as expected to a successful request', () => {
+
+    });
+
+    it('should reset form on successful request', () => {
 
     });
   });
