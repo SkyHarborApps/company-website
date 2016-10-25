@@ -67,5 +67,9 @@ class SkyAlert extends Component {
 
 SkyAlert.propTypes = propTypes;
 
-export default {Alert: SkyAlert}
+SkyAlert.defaultProps = {
+  showIcon: true
+}
+
+export default SkyAlert
 

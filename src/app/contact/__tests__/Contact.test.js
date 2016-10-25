@@ -7,6 +7,7 @@ import { Contact } from '../Contact';
 import { shallow, mount } from 'enzyme';
 import { Col, Form, FormGroup, FormControl, ControlLabel, Button, HelpBlock} from 'react-bootstrap';
 import api from '../api'
+import Alert from "../../alerts/Alert"
 
 
 describe('Form', () => {
@@ -29,11 +30,11 @@ describe('Form', () => {
   describe('Layout', () => {
 
     it('should have Form as top component', () => {
-      expect(wrapper.type()).toEqual(Form);
+      expect(wrapper.childAt(0).type()).toEqual(Form);
     });
 
     it('should have form have horizontal prop = true', () => {
-      expect(wrapper.props().horizontal).toEqual(true);
+      expect(wrapper.childAt(0).props().horizontal).toEqual(true);
 
     });
 
@@ -360,13 +361,36 @@ describe('Form', () => {
       expect(api.contact).toHaveBeenCalledWith('hello@email.com', 'hello');
     });
 
-    it('should react as expected to a failed request', () => {
+    describe('Alerts', () => {
+      describe('Fail', () => {
+        let alertProps;
+        beforeEach(() => {
+          alertProps = wrapper.childAt(0).props();
+        });
+        it('should have an alert on fail', (done) => {
+          expect(wrapper.childAt(0).type()).toEqual(Alert)
+        });
+        it('should be the correct type', () => {
+          expect(alertProps.type).toEqual('danger')
+        });
 
+        it('should have the correct headline', () => {
+          expect(alertProps.headline).toEqual('Error!')
+        });
+
+        it('should have the correct text', () => {
+          expect(alertProps.text).toEqual('Form failed to submit. Please try again.')
+        });
+      });
+
+      describe('Succcess', () => {
+        it('should act as expected to a successful request', () => {
+
+        });
+      });
     });
 
-    it('should act as expected to a successful request', () => {
 
-    });
 
     it('should reset form on successful request', () => {
 

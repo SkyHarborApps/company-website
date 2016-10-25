@@ -13,10 +13,9 @@ describe('Alert', () => {
 
   beforeEach(() => {
     wrapper = shallow(
-      <SkyAlert.Alert
+      <SkyAlert
         type='danger'
         headline='Oh No!'
-        showIcon
         text="There is a problem!"
       />)
   });
