@@ -4,8 +4,6 @@
 import React, {Component} from 'react';
 import { Col, Form, FormGroup, FormControl, ControlLabel, Button, HelpBlock} from 'react-bootstrap';
 import helpers from './helpers'
-import Alert  from "../alerts/Alert"
-
 
 export class Contact extends Component {
 
@@ -13,7 +11,6 @@ export class Contact extends Component {
     super();
     this.state = {
       submitPressed: false,
-      submitSuccessful: null,
       emailAttempted:false,
       messageAttempted:false,
       email: '',
@@ -49,26 +46,12 @@ export class Contact extends Component {
     return helpers.getValidationState(submitPressed, messageAttempted, message.length);
   }
 
-  renderAlert() {
-    return (
-      <Alert
-        type='danger'
-        headline='Error!'
-        text='Form failed to submit. Please try again.'
-      />
-    )
-  }
-
   render() {
 
     const { email, emailHelpText, message, messageHelpText } = this.state;
-
     // TODO: Refactor each input into it's own separate component
     return (
       <div>
-        {
-          this.renderAlert()
-        }
         <Form horizontal>
           <FormGroup
             controlId="formHorizontalEmail"

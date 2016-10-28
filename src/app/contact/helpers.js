@@ -15,7 +15,7 @@ function submit(email, message) {
   Object.assign(newState, {submitPressed: true});
 
   if (formInputValid(email, message)) {
-    api.contact(email, message, (error) => {});
+    api.contact(email, message);
   } else {
     if(email.length > 0) {
       newState.emailHelpText = "Email Invalid";

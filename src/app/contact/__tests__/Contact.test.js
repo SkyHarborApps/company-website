@@ -361,13 +361,13 @@ describe('Form', () => {
       expect(api.contact).toHaveBeenCalledWith('hello@email.com', 'hello');
     });
 
-    describe('Alerts', () => {
+    xdescribe('Notifications', () => {
       describe('Fail', () => {
         let alertProps;
         beforeEach(() => {
           alertProps = wrapper.childAt(0).props();
         });
-        it('should have an alert on fail', (done) => {
+        it('should have an alert on fail', () => {
           expect(wrapper.childAt(0).type()).toEqual(Alert)
         });
         it('should be the correct type', () => {
@@ -389,8 +389,6 @@ describe('Form', () => {
         });
       });
     });
-
-
 
     it('should reset form on successful request', () => {
 
