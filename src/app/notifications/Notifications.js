@@ -1,26 +1,26 @@
 /**
  * Created by danielhollcraft on 10/28/16.
  */
-import React from 'react'
+import React, { Component, PropTypes } from 'react'
+import { AlertList } from "react-bs-notifier";
 
-
-class NotifierGenerator extends React.Component {
+export default class Notifications extends Component {
   constructor(props) {
     super(props);
 
+    // TODO:  instantiate event listener here for generate function
+
     this.state = {
-      alerts: [],
-      timeout: 0,
-      newMessage: "This is a test of the Emergency Broadcast System. This is only a test."
+      alerts: []
     };
   }
-  
-  generate(type) {
+
+  generate(type, headline, message) {
     const newAlert ={
-      id: (new Date()).getTime(),
-      type: type,
-      headline: `Whoa, ${type}!`,
-      message: this.state.newMessage
+      id: new Date().getTime(),
+      type,
+      headline,
+      message
     };
 
     this.setState({

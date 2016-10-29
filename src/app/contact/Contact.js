@@ -3,7 +3,7 @@
  */
 import React, {Component} from 'react';
 import { Col, Form, FormGroup, FormControl, ControlLabel, Button, HelpBlock} from 'react-bootstrap';
-import helpers from './helpers'
+import helpers from './actions'
 
 export class Contact extends Component {
 

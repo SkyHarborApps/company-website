@@ -4,6 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { App } from './App';
 import { Grid, Navbar, Jumbotron, NavItem, Nav, Col } from 'react-bootstrap';
 import NavigationBar from './navigationBar/NavigationBar'
+import Notifications from './notifications/Notifications'
 
 
 describe('App', () => {
@@ -22,30 +23,36 @@ describe('App', () => {
       });
     });
 
+    describe('Notifications', () => {
+      it('should have a Notification as next component', () => {
+        expect(wrapper.childAt(1).type()).toEqual(Notifications)
+      });
+    });
+
     describe('content container', () => {
       it('should have the next component be a Grid component', () => {
-        expect(wrapper.childAt(1).type()).toEqual(Grid)
+        expect(wrapper.childAt(2).type()).toEqual(Grid)
       });
 
       it('should have Grid have correct class', () => {
-        expect(wrapper.childAt(1).props().className).toEqual('content')
+        expect(wrapper.childAt(2).props().className).toEqual('content')
       });
 
       it('should have first child be Col', () => {
-        expect(wrapper.childAt(1).childAt(0).type()).toEqual(Col)
+        expect(wrapper.childAt(2).childAt(0).type()).toEqual(Col)
       });
 
       it('should have Col have correct lg prop val', () => {
-        expect(wrapper.childAt(1).childAt(0).props().lg).toEqual(10)
+        expect(wrapper.childAt(2).childAt(0).props().lg).toEqual(10)
       });
 
       it('should have props.children inside Grid', () => {
-        expect(wrapper.childAt(1).childAt(0).childAt(0).text()).toEqual("I am a child!")
+        expect(wrapper.childAt(2).childAt(0).childAt(0).text()).toEqual("I am a child!")
       });
     });
     describe('footer', () => {
       it('should have a footer with correct text', () => {
-        expect(wrapper.childAt(2).html())
+        expect(wrapper.childAt(3).html())
           .toEqual(`<footer>© Copyright ${new Date().getFullYear()}, Sky Harbor Apps LLC</footer>`)
       });
     });
